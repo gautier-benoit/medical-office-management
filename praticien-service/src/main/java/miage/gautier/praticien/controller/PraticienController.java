@@ -4,20 +4,20 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import miage.gautier.praticien.model.Praticien;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 // TODO describe this class using @Api annotation from swagger
-@Api(value = "Praticien Management System", description = "Operations pertaining to praticien")
+@Tag(name = "Praticien Management System", description = "Operations pertaining to praticien")
 // TODO this is a Rest Controller
 @RestController
+@RequestMapping("/api/praticiens")
 public class PraticienController {
 
     // TODO create praticien List : name, class, country
@@ -39,7 +39,7 @@ public class PraticienController {
     }
 
     // TODO add http response for getPraticien operation : 200 / 401 / 403 / 404 (use ApiResponses annotation)
-    @ApiOperation(value = "View a list of available praticiens", response = List.class)
+    @Operation(summary = "View a list of available praticiens")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
@@ -48,15 +48,15 @@ public class PraticienController {
     })
 
     // TODO endpoint getPraticien (return student List)
-    @RequestMapping(value = "/getPraticiens", method = RequestMethod.GET)
+    @RequestMapping(value = "/findPraticiens", method = RequestMethod.GET)
     public List<Praticien> getPraticiens() {
         return praticiens;
     }
 
     // TODO Get Praticien by name
     // TODO describe this endpoint using swagger
-    @ApiOperation(value = "Search a praticien with a name", response = Praticien.class)
-    @RequestMapping(value = "/getPraticien/{name}")
+    @Operation(summary = "Search a praticien with a name")
+    @GetMapping(value = "/findPraticienDetail/{name}")
     public Praticien getPraticien(@PathVariable(value = "name") String name) {
         return praticiens.stream()
                 .filter(praticien -> praticien.getName().equalsIgnoreCase(name))
@@ -65,8 +65,8 @@ public class PraticienController {
     }
 
     // TODO get Praticien by country
-    @ApiOperation(value = "Search praticiens by country", response = List.class)
-    @RequestMapping(value = "/getPraticienByCountry/{country}")
+    @Operation(summary = "Search praticiens by country")
+    @GetMapping(value = "/findPraticienDetailsByCountry/{country}")
     public List<Praticien> getPraticienByCountry(@PathVariable(value = "country") String country) {
 
         // TODO impl this method  to getPraticienByCountry
@@ -76,8 +76,8 @@ public class PraticienController {
     }
 
     // TODO get Praticien by speciality
-    @ApiOperation(value = "Search praticiens by speciality", response = List.class)
-    @RequestMapping(value = "/getPraticienBySpeciality/{speciality}")
+    @Operation(summary = "Search praticiens by speciality")
+    @GetMapping(value = "/findPraticienDetailsBySpeciality/{speciality}")
     public List<Praticien> getPraticienBySpeciality(@PathVariable(value = "speciality") String speciality) {
 
         // TODO impl this method  to getPraticienBySpeciality

@@ -3,16 +3,16 @@ package miage.gautier.praticien.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "Paticien details")
+@ApiModel(description = "Praticien details")
 public class Praticien {
 
-    @ApiModelProperty(notes = "Paticien name")
+    @ApiModelProperty(notes = "Praticien name")
     private String name;
 
-    @ApiModelProperty(notes = "Paticien country")
+    @ApiModelProperty(notes = "Praticien country")
     private String country;
 
-    @ApiModelProperty(notes = "Paticien speciality")
+    @ApiModelProperty(notes = "Praticien speciality")
     private String speciality;
 
     public String getName() {

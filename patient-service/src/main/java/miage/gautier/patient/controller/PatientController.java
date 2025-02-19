@@ -1,23 +1,21 @@
 package miage.gautier.patient.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import miage.gautier.patient.model.Patient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 // TODO describe this class using @Api annotation from swagger
-@Api(value = "Patient Management System", description = "Operations pertaining to patient")
+@Tag(name = "Patient Management System", description = "Operations pertaining to patient")
 // TODO this is a Rest Controller
 @RestController
+@RequestMapping("/api/patients")
 public class PatientController {
 
 
@@ -38,7 +36,7 @@ public class PatientController {
     }
 
     // TODO add http response for getPatient operation : 200 / 401 / 403 / 404 (use ApiResponses annotation)
-    @ApiOperation(value = "View a list of available patients", response = List.class)
+    @Operation(summary = "View a list of available patients")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
@@ -47,15 +45,15 @@ public class PatientController {
     })
 
     // TODO endpoint getPatients (return student List)
-    @RequestMapping(value = "/getPatients", method = RequestMethod.GET)
+    @GetMapping(value = "/findPatients")
     public List<Patient> getPatients() {
         return patients;
     }
 
     // TODO Get Patien by name
     // TODO describe this endpoint using swagger
-    @ApiOperation(value = "Search a patient with a name", response = Patient.class)
-    @RequestMapping(value = "/getPatient/{name}")
+    @Operation(summary = "Search a patient with a name")
+    @GetMapping(value = "/findPatientDetailsByName/{name}")
     public Patient getPatient(@PathVariable(value = "name") String name) {
         return patients.stream()
                 .filter(patient -> patient.getName().equalsIgnoreCase(name))
@@ -64,8 +62,8 @@ public class PatientController {
     }
 
     // TODO get Patient by country
-    @ApiOperation(value = "Search patients by country", response = List.class)
-    @RequestMapping(value = "/getPatientByCountry/{country}")
+    @Operation(summary = "Search patients by country")
+    @GetMapping(value = "/findPatientDetailsByCountry/{country}")
     public List<Patient> getPatientByCountry(@PathVariable(value = "country") String country) {
 
         // TODO impl this method  to getPatientByCountry
