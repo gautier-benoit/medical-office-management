@@ -3,9 +3,9 @@ server:
 
 spring:
   application:
-    name: patient-service
+    name: patricien-service
   datasource:
-    url: jdbc:h2:mem:patientdb
+    url: jdbc:h2:mem:patriciendb
     username: sa
     password: password
     driverClassName: org.h2.Driver
@@ -34,7 +34,7 @@ springdoc:
 
 resilience4j.circuitbreaker:
   instances:
-    patientService:
+    patricienService:
       slidingWindowSize: 10
       minimumNumberOfCalls: 5
       permittedNumberOfCallsInHalfOpenState: 3

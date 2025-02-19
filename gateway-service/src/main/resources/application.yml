@@ -1,26 +1,53 @@
 server:
-  port: 8010    #port number
-
-eureka:
-  instance:
-    leaseRenewalIntervalInSeconds: 5
-    leaseExpirationDurationInSeconds: 2
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-    healthcheck:
-      enabled: true
-    lease:
-      duration: 5
+  port: 8080
 
 spring:
   application:
     name: gateway-service
 
-management:
-  security:
-    enabled: false
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    preferIpAddress: true
 
-logging:
-  level:
-    miage.gautier.gateway: DEBUG
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 5
+      permittedNumberOfCallsInHalfOpenState: 3
+      waitDurationInOpenState: 5s
+      failureRateThreshold: 50
+      recordExceptions:
+        - org.springframework.web.client.RestClientException
+        - java.io.IOException
+        - java.net.ConnectException
+        - org.springframework.web.client.ResourceAccessException
+        - java.lang.IllegalStateException
+  instances:
+    patientService:
+      baseConfig: default
+    practitionerService:
+      baseConfig: default
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
