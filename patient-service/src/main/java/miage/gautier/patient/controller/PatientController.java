@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class PatientController {
 
 
-    // TODO create student List : name, class, country
+    // TODO create patient List : name, class, country
     private List<Patient> patients = new ArrayList<>();
 
     public PatientController() {
@@ -37,7 +37,7 @@ public class PatientController {
         patients.add(patient2);
     }
 
-    // TODO add http response for getStudent operation : 200 / 401 / 403 / 404 (use ApiResponses annotation)
+    // TODO add http response for getPatient operation : 200 / 401 / 403 / 404 (use ApiResponses annotation)
     @ApiOperation(value = "View a list of available patients", response = List.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
@@ -46,13 +46,13 @@ public class PatientController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
 
-    // TODO endpoint getStudent (return student List)
-    @RequestMapping(value = "/getPatient", method = RequestMethod.GET)
-    public List<Patient> getStudents() {
+    // TODO endpoint getPatients (return student List)
+    @RequestMapping(value = "/getPatients", method = RequestMethod.GET)
+    public List<Patient> getPatients() {
         return patients;
     }
 
-    // TODO Get Student by name
+    // TODO Get Patien by name
     // TODO describe this endpoint using swagger
     @ApiOperation(value = "Search a patient with a name", response = Patient.class)
     @RequestMapping(value = "/getPatient/{name}")
@@ -63,12 +63,12 @@ public class PatientController {
                 .orElse(null);
     }
 
-    // TODO get Student by country
+    // TODO get Patient by country
     @ApiOperation(value = "Search patients by country", response = List.class)
     @RequestMapping(value = "/getPatientByCountry/{country}")
-    public List<Patient> getStudentByCountry(@PathVariable(value = "country") String country) {
+    public List<Patient> getPatientByCountry(@PathVariable(value = "country") String country) {
 
-        // TODO impl this method  to getStudentByCountry
+        // TODO impl this method  to getPatientByCountry
         return patients.stream()
                 .filter(patient -> patient.getCountry().equalsIgnoreCase(country))
                 .collect(Collectors.toList());

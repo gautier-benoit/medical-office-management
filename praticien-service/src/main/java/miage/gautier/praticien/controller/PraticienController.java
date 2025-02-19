@@ -48,8 +48,8 @@ public class PraticienController {
     })
 
     // TODO endpoint getPraticien (return student List)
-    @RequestMapping(value = "/getPraticien", method = RequestMethod.GET)
-    public List<Praticien> getStudents() {
+    @RequestMapping(value = "/getPraticiens", method = RequestMethod.GET)
+    public List<Praticien> getPraticiens() {
         return praticiens;
     }
 
@@ -67,7 +67,7 @@ public class PraticienController {
     // TODO get Praticien by country
     @ApiOperation(value = "Search praticiens by country", response = List.class)
     @RequestMapping(value = "/getPraticienByCountry/{country}")
-    public List<Praticien> getStudentByCountry(@PathVariable(value = "country") String country) {
+    public List<Praticien> getPraticienByCountry(@PathVariable(value = "country") String country) {
 
         // TODO impl this method  to getPraticienByCountry
         return praticiens.stream()
@@ -78,7 +78,7 @@ public class PraticienController {
     // TODO get Praticien by speciality
     @ApiOperation(value = "Search praticiens by speciality", response = List.class)
     @RequestMapping(value = "/getPraticienBySpeciality/{speciality}")
-    public List<Praticien> getStudentBySpeciality(@PathVariable(value = "speciality") String speciality) {
+    public List<Praticien> getPraticienBySpeciality(@PathVariable(value = "speciality") String speciality) {
 
         // TODO impl this method  to getPraticienBySpeciality
         return praticiens.stream()
